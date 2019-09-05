@@ -2,12 +2,11 @@
 /*export default combineReducers({
   replaceMe: () => "Replace Me"
 });*/
-export default function getCategoryDetails(state = [], action) {
-  switch(action.type) {
-    case 'FETCH_CATEGORIES':
-        return action.payload;
-    default:
-        return state;
-  }
-}
+import { combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
+import fetchReducer from "./fetchReducer";
 
+export default combineReducers({
+  getCategoryDetails: fetchReducer,
+  form: formReducer
+});

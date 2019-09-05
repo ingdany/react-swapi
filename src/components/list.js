@@ -14,6 +14,8 @@ class List extends React.Component {
           <a
             name={res.url}
             key={res.name}
+            //href={res.name}
+            href="/#"
             className="panel-block is-active"
             onClick={this.onSelectChild}
           >
@@ -27,7 +29,7 @@ class List extends React.Component {
     ) : (
       <nav className="panel">
         <p className="panel-heading">List</p>
-        <a className="panel-block is-active">
+        <a href="/#" className="panel-block is-active">
           <span className="panel-icon">
             <i className="fab fa-galactic-republic" aria-hidden="true" />
           </span>

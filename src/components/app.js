@@ -6,7 +6,7 @@ import List from "./list";
 import Details from "./details";
 import { connect } from "react-redux";
 import { fetchCategories } from "../actions/index";
-import { throwStatement } from "@babel/types";
+//import { throwStatement } from "@babel/types";
 
 /* [3] Create a component app to call the first component */
 //const App = () => {
@@ -15,11 +15,16 @@ class App extends React.Component {
 
   onSelectParent = async url => {
     const response = await axios.get(url);
-    console.log(response.data);
+    //console.log(response.data);
     this.setState({
       details: JSON.stringify(response.data),     
     });
   };
+
+  onSubmit = formValues => {
+    //console.log(formValues)
+    this.props.fetchCategories(formValues);
+  }
 
   render() {
     return (
@@ -31,13 +36,13 @@ class App extends React.Component {
         <div className="column" />
         <div className="column">
           <Categories />
-          <Search />
+          <Search onSubmit={this.onSubmit}/>
           <div className="columns">
             <div className="row" />
-            <div className="column is-one-third">
+            <div className="column is-one-quarter">
               <List onSelectChild={this.onSelectParent} />
             </div>
-            <div className="column is-two-thirds">
+            <div className="column is-three-quarters">
               <Details
                 detailsChild={this.state.details}
               />
@@ -48,6 +53,7 @@ class App extends React.Component {
       </div>
     );
   }
+
 }
 
 function mapStateToProps({ state }) {
