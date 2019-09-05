@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Categories from "./categories";
 import Search from "./search";
@@ -10,20 +10,17 @@ import SkinContext from "../contexts/SkinContext";
 //import { throwStatement } from "@babel/types";
 
 /* [3] Create a component app to call the first component */
-//const App = () => {
 class App extends React.Component {
   state = { details: "", rotation: "", orbital: "", diameter: "", climate: "" };
 
   onSelectParent = async url => {
     const response = await axios.get(url);
-    //console.log(response.data);
     this.setState({
       details: JSON.stringify(response.data)
     });
   };
 
   onSubmit = formValues => {
-    //console.log(formValues)
     this.props.fetchCategories(formValues);
   };
 
@@ -39,7 +36,6 @@ class App extends React.Component {
           <SkinContext.Provider value="is-black">
             <Categories />
           </SkinContext.Provider>
-
           <Search onSubmit={this.onSubmit} />
           <div className="columns">
             <div className="row" />

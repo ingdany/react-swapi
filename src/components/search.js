@@ -37,22 +37,7 @@ class Search extends React.Component {
   };
 
   render() {
-    //console.log(this.props);
     return (
-      /*<div id="search" className="row" style={{ marginTop: "10px", marginBottom: "10px" }}>
-        <div className="field">
-          <div className="control">
-            <input
-              className="input is-focused"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-        </div>
-      </div>
-      <button className="ui button primary">Submit</button>
-      */
-
       <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <Field name="criteria" label="Search" component={this.renderInput} />
       </form>

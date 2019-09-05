@@ -1,77 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchCategories } from "../actions/index";
 import SkinContext from "../contexts/SkinContext";
 
-class Categories extends React.Component {
-  /*[6] Use a componentDidMount*/
-  /*componentDidMount() { 
-    this.props.fetchCategories();
-  }*/
+const Categories = props => {
+  const initialValue = [{ id: 0, value: "---" }];
 
-  renderButton(skin) {
+  const allowedState = [
+    { id: 1, value: "planets" },
+    { id: 2, value: "starships" },
+    { id: 3, value: "vehicles" },
+    { id: 4, value: "people" },
+    { id: 5, value: "films" },
+    { id: 6, value: "species" }
+  ];
+
+  const [categorylist, setStateValues] = useState(initialValue);
+
+  useEffect(() => {
+    setStateValues(allowedState);
+  }, []);
+
+  const renderButton = skin => {
     return (
       <div className="row">
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("planets")}
-        >
-          Planets
-        </button>
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("starships")}
-        >
-          Starships
-        </button>
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("vehicles")}
-        >
-          Vehicles
-        </button>
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("people")}
-        >
-          People
-        </button>
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("films")}
-        >
-          Films
-        </button>
-        <button
-          className={`button bd-notification ${skin}`}
-          style={{ marginRight: "5px" }}
-          onClick={() => this.props.fetchCategories("species")}
-        >
-          Species
-        </button>
+        {categorylist.map((localState, index) => (
+          <button
+            className={`button bd-notification ${skin}`}
+            style={{ marginRight: "5px" }}
+            onClick={() => props.fetchCategories(localState.value)}
+          >
+            {localState.value}
+          </button>
+        ))}
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <SkinContext.Consumer>
-        {skin => this.renderButton(skin)}
-      </SkinContext.Consumer>
-    );
-  }
-}
+  return (
+    <SkinContext.Consumer>{skin => renderButton(skin)}</SkinContext.Consumer>
+  );
+};
 
 function mapStateToProps({ state }) {
   return { getCategoryDetails: state };
 }
 
-/* [5] Connect but send a null state,*/
 export default connect(
   mapStateToProps,
   { fetchCategories }
