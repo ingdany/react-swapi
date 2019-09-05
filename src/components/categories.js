@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchCategories } from "../actions/index";
+import SkinContext from "../contexts/SkinContext";
 
 class Categories extends React.Component {
   /*[6] Use a componentDidMount*/
@@ -8,52 +9,60 @@ class Categories extends React.Component {
     this.props.fetchCategories();
   }*/
 
-  render() {
+  renderButton(skin) {
     return (
       <div className="row">
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("planets")}
         >
           Planets
         </button>
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("starships")}
         >
           Starships
         </button>
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("vehicles")}
         >
           Vehicles
         </button>
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("people")}
         >
           People
         </button>
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("films")}
         >
           Films
         </button>
         <button
-          className="button bd-notification is-primary"
+          className={`button bd-notification ${skin}`}
           style={{ marginRight: "5px" }}
           onClick={() => this.props.fetchCategories("species")}
         >
           Species
         </button>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <SkinContext.Consumer>
+        {skin => this.renderButton(skin)}
+      </SkinContext.Consumer>
     );
   }
 }
@@ -63,4 +72,7 @@ function mapStateToProps({ state }) {
 }
 
 /* [5] Connect but send a null state,*/
-export default connect(mapStateToProps,{fetchCategories})(Categories);
+export default connect(
+  mapStateToProps,
+  { fetchCategories }
+)(Categories);
